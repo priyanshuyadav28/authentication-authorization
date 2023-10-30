@@ -91,7 +91,6 @@ exports.signIn = async (req, res) => {
             email: user.email,
             id: user._id,
             role: user.role,
-
         }; 
 
         // check for password match and generate a jwt token
@@ -101,13 +100,13 @@ exports.signIn = async (req, res) => {
                                 process.env.JWT_SECRET,
                                 {
                                     expiresIn: "2h",
-                            });
-            // create a token field and insert the token in user, which we found above by findOne method
+                                });
+            // create a token field and insert the token in user object , which we found above by findOne method
             const userResponse = user.toObject();
             userResponse.token = token;
 
             // remove the password from the user object
-             userResponse.password = undefined;
+            userResponse.password = undefined;
             
             const options = {
                 expiresIn: new Date(Date.now() + 3 * 24* 60 * 60 * 1000), 
